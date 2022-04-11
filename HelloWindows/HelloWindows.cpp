@@ -17,6 +17,7 @@ public:
     void Nhap();
     void Xuat();
     string getHoten();
+    float getDTB();
 };
 
 class LopHoc {
@@ -27,7 +28,9 @@ public:
     LopHoc();
     ~LopHoc();
     void ThemHocSinh();
+    void XoaHocSinh();
     void XuatHocSinh();
+    void XuatHocSinhDTB8();
 };
 
 HocSinh::HocSinh()
@@ -51,6 +54,11 @@ void HocSinh::Xuat()
 string HocSinh::getHoten()
 {
     return Hoten;
+}
+
+float HocSinh::getDTB()
+{
+    return Dtb;
 }
 
 HocSinh::~HocSinh()
@@ -77,23 +85,51 @@ void LopHoc::ThemHocSinh()
     {
         cout << "Nhap lan luot ho ten, ma so, so dien thoai va diem trung binh cua hoc sinh thu: "<<i+1<< endl;
         HocSinh* temp = new HocSinh();
-        HocSinh* temp1 = new HocSinh();
         temp->Nhap();
 
-        for (int j = 0; j < A.size(); j++)
+        if (A.empty() == true) 
         {
-            temp1 = A[j];
-            if (temp->getHoten() == temp1->getHoten())
+            A.push_back(temp);
+        }
+        else 
+        {
+            for (HocSinh* j : A)
             {
-                cout << "Da co hoc sinh trong lop";
-            }
-            else
-            {
-                A.push_back(temp);
-                cout << "1";
+                if (temp->getHoten() == j->getHoten())
+                {
+                    cout << "Da co hoc sinh trong lop" << endl;
+                }
+                else
+                {
+                    A.push_back(temp);
+                }
             }
         }
+
+        
     }
+}
+
+void LopHoc::XoaHocSinh()
+{
+    int count = 0;
+    string temp;
+    cout << "Nhap ten hoc sinh can xoa: ";
+    cin >> temp;
+    HocSinh* j = new HocSinh();
+
+    for (int i = 0; i < A.size(); i++)
+    {
+        j = A[i];
+        if (temp == j->getHoten())
+        {
+            A.erase(A.begin() + i);
+            cout << "Xoa hoc sinh thanh cong" << endl;
+        }
+        else count = 1;;
+    }
+
+    if (count==1) cout << "Khong co hoc sinh trong lop" << endl;
 }
 
 void LopHoc::XuatHocSinh()
@@ -104,11 +140,23 @@ void LopHoc::XuatHocSinh()
     }
 }
 
+void LopHoc::XuatHocSinhDTB8()
+{
+    for (HocSinh* k : A)
+    {
+        if (k->getDTB() > 8)
+            k->Xuat();
+    }
+}
+
 int main()
 {
     LopHoc H;
     H.ThemHocSinh();
     H.XuatHocSinh();
+    H.XoaHocSinh();
+    H.XuatHocSinh();
+    H.XuatHocSinhDTB8();
     return 0;
 }
 
