@@ -2,6 +2,7 @@
 #include<vector>
 #include<string>
 #include<math.h>
+#include<fstream>
 
 using namespace std;
 
@@ -31,6 +32,7 @@ public:
     void XoaHocSinh();
     void XuatHocSinh();
     void XuatHocSinhDTB8();
+    void NhapTuTapTin();
 };
 
 HocSinh::HocSinh()
@@ -149,6 +151,15 @@ void LopHoc::XuatHocSinhDTB8()
     }
 }
 
+void LopHoc::NhapTuTapTin()
+{
+    fstream myFile;
+    myFile.open("LopHoc.txt", fstream::in | fstream::app);
+    myFile << "Text";
+
+    myFile.close();
+}
+
 int main()
 {
     LopHoc H;
@@ -157,6 +168,7 @@ int main()
     H.XoaHocSinh();
     H.XuatHocSinh();
     H.XuatHocSinhDTB8();
+    H.NhapTuTapTin();
     return 0;
 }
 
