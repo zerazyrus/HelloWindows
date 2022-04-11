@@ -3,6 +3,7 @@
 #include<string>
 #include<math.h>
 #include<fstream>
+#include<stdlib.h>
 
 using namespace std;
 
@@ -16,6 +17,7 @@ public:
     HocSinh();
     ~HocSinh();
     void Nhap();
+    void NhapTuFile(string hoten, int maso, int sdt, int dtb);
     void Xuat();
     string getHoten();
     float getDTB();
@@ -46,6 +48,14 @@ HocSinh::HocSinh()
 void HocSinh::Nhap()
 {
     cin >> Hoten >> Maso >> Sdt >> Dtb;
+}
+
+void HocSinh::NhapTuFile(string hoten, int maso, int sdt, int dtb)
+{
+    Hoten = hoten;
+    Maso = maso;
+    Sdt = sdt;
+    Dtb = dtb;
 }
 
 void HocSinh::Xuat()
@@ -154,8 +164,16 @@ void LopHoc::XuatHocSinhDTB8()
 void LopHoc::NhapTuTapTin()
 {
     fstream myFile;
-    myFile.open("LopHoc.txt", fstream::in | fstream::app);
-    myFile << "Text";
+    myFile.open("LopHoc.txt", ios::in);
+    string dataString;
+
+    getline(myFile, dataString);
+    n = atoi(dataString.c_str());
+
+    while (!myFile.eof())
+    {
+
+    }
 
     myFile.close();
 }
